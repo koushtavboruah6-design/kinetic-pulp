@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>THE KINETIC PULP - Resume Roaster</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,800;1,800;1,900&family=Work+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind CSS with plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#e4e2e1",
+                        "surface-dim": "#d6d4d3",
+                        "outline-variant": "#afadac",
+                        "on-tertiary-container": "#690005",
+                        "secondary-container": "#ffd709",
+                        "secondary": "#6c5a00",
+                        "on-secondary-fixed-variant": "#665500",
+                        "inverse-surface": "#0e0e0e",
+                        "surface": "#f9f6f5",
+                        "tertiary-fixed-dim": "#ff7b6f",
+                        "primary-container": "#ff7852",
+                        "on-primary-container": "#480d00",
+                        "surface-container-low": "#f3f0ef",
+                        "error": "#b31b25",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffefed",
+                        "surface-container": "#eae7e7",
+                        "on-secondary-container": "#5b4b00",
+                        "tertiary-fixed": "#ff9287",
+                        "surface-tint": "#ac2c00",
+                        "on-secondary-fixed": "#453900",
+                        "tertiary-container": "#ff9287",
+                        "on-background": "#2f2f2e",
+                        "surface-bright": "#f9f6f5",
+                        "on-error-container": "#570008",
+                        "tertiary": "#b41a1a",
+                        "on-error": "#ffefee",
+                        "secondary-dim": "#5e4e00",
+                        "secondary-fixed-dim": "#efc900",
+                        "primary-dim": "#972500",
+                        "outline": "#787676",
+                        "on-surface-variant": "#5c5b5b",
+                        "surface-container-highest": "#dfdcdc",
+                        "secondary-fixed": "#ffd709",
+                        "on-tertiary-fixed-variant": "#7a0007",
+                        "surface-variant": "#dfdcdc",
+                        "on-primary": "#ffefec",
+                        "on-primary-fixed": "#000000",
+                        "tertiary-dim": "#a30610",
+                        "error-dim": "#9f0519",
+                        "on-tertiary-fixed": "#3a0002",
+                        "inverse-on-surface": "#9e9c9c",
+                        "primary-fixed-dim": "#ff5d2e",
+                        "error-container": "#fb5151",
+                        "background": "#f9f6f5",
+                        "on-primary-fixed-variant": "#581200",
+                        "primary": "#ac2c00",
+                        "on-surface": "#2f2f2e",
+                        "inverse-primary": "#ff5624",
+                        "primary-fixed": "#ff7852",
+                        "on-secondary": "#fff2cd",
+                        "success": "#166534"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Epilogue"],
+                        "body": ["Work Sans"],
+                        "label": ["Space Grotesk"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .halftone-bg {
+            background-image: radial-gradient(#afadac 15%, transparent 16%);
+            background-size: 12px 12px;
+            opacity: 0.1;
+        }
+
+        .halftone-overlay {
+            background-image: radial-gradient(circle, #afadac 1px, transparent 1px);
+            background-size: 8px 8px;
+            opacity: 0.15;
+        }
+
+        .comic-halftone {
+            background-image: radial-gradient(#afadac33 1.5px, transparent 0);
+            background-size: 10px 10px;
+        }
+
+        .comic-border {
+            border: 4px solid #2f2f2e;
+        }
+
+        .comic-shadow {
+            box-shadow: 8px 8px 0px 0px #2f2f2e;
+        }
+
+        .comic-shadow-primary {
+            box-shadow: 6px 6px 0px 0px #581200;
+        }
+
+        .impact-shadow {
+            box-shadow: 8px 8px 0px 0px #2f2f2e;
+        }
+
+        .skew-title {
+            transform: skewX(-6deg);
+        }
+
+        .burning-fuse {
+            background: linear-gradient(90deg, #ffd709 0%, #ff7852 50%, #ac2c00 100%);
+        }
+
+        .gritty-overlay {
+            background: linear-gradient(180deg, rgba(47, 47, 46, 0) 0%, rgba(47, 47, 46, 0.9) 100%);
+        }
+
+        .skew-tile {
+            transform: skewY(-1deg);
+        }
+
+        .dragover {
+            border-color: #ac2c00 !important;
+            background: #ffefec !important;
+            transform: scale(1.02);
+            transition: all 0.2s ease-out;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-surface font-body text-on-background selection:bg-secondary-container selection:text-on-secondary-container overflow-x-hidden min-h-screen flex flex-col">
+
+    <!-- TopAppBar -->
+    <header
+        class="w-full top-0 sticky z-50 border-b-4 border-on-background bg-surface dark:bg-[#1a1a1a] flex justify-between items-center px-6 py-4 max-w-full shadow-[4px_4px_0px_0px_rgba(47,47,46,1)]">
+        <div class="flex items-center gap-6 cursor-pointer" onclick="navigate('home')">
+            <span
+                class="text-3xl font-black text-primary dark:text-[#ff7852] italic transform -skew-x-6 font-headline tracking-tighter uppercase">THE
+                KINETIC PULP</span>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-8 font-label font-bold uppercase">
+            <button id="nav-home" onclick="navigate('home')"
+                class="text-primary underline decoration-4 underline-offset-4 hover:skew-y-1 transition-transform">Roast
+                My CV</button>
+            <button id="nav-shame" onclick="navigate('shame')"
+                class="text-on-background hover:skew-y-1 hover:text-primary transition-transform">Hall of Shame</button>
+        </nav>
+
+        <div class="flex items-center gap-4">
+            <button
+                class="bg-primary text-on-primary px-6 py-2 font-headline font-extrabold italic skew-x-[-12deg] border-2 border-on-background hover:translate-x-1 hover:translate-y-1 transition-all active:translate-x-2 active:translate-y-2">LOGIN</button>
+            <span class="material-symbols-outlined text-3xl md:hidden" data-icon="menu">menu</span>
+        </div>
+    </header>
+
+    <!-- VIEWS CONTAINER -->
+    <main class="relative flex-grow">
+
+        <!-- VIEW: HOME -->
+        <div id="view-home" class="view-section">
+            <div class="fixed inset-0 halftone-bg pointer-events-none z-0"></div>
+
+            <section class="relative pt-12 pb-24 px-6 max-w-7xl mx-auto z-10 grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div
+                        class="inline-block bg-secondary-fixed text-on-secondary-fixed px-4 py-1 font-label font-bold uppercase tracking-widest border-2 border-on-background -rotate-2">
+                        V0.1 BETA - EXPERIMENTAL AI
+                    </div>
+                    <h1
+                        class="font-headline text-7xl md:text-8xl font-black italic tracking-tighter text-on-background leading-[0.85] uppercase -skew-x-6">
+                        YOUR RESUME IS <span
+                            class="text-primary block scale-110 origin-left mt-2 underline decoration-8 decoration-secondary-fixed">GARBAGE.</span>
+                    </h1>
+                    <p
+                        class="text-xl md:text-2xl font-body font-medium max-w-lg leading-relaxed border-l-8 border-primary-container pl-6 bg-surface-container-low py-4">
+                        Stop lying to yourself. Our AI doesn't give participation trophies. It gives <span
+                            class="text-primary font-bold">Third-Degree Burns.</span>
+                    </p>
+
+                </div>
+
+                <div class="relative group">
+                    <div id="upload-zone"
+                        class="bg-surface-container-high border-4 border-dashed border-on-background p-12 relative comic-shadow rotate-1 transition-transform duration-300 min-h-[500px] flex flex-col items-center justify-center text-center cursor-pointer">
+                        <div
+                            class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-on-background text-surface px-6 py-2 font-label font-bold uppercase tracking-[0.3em] skew-x-3">
+                            CLASSIFIED
+                        </div>
+                        <div class="space-y-6 pointer-events-none">
+                            <span class="material-symbols-outlined text-8xl text-primary" data-icon="cloud_upload"
+                                style="font-variation-settings: 'FILL' 1;">cloud_upload</span>
+                            <h3 class="font-headline text-3xl font-black uppercase italic">Drop the "Evidence" Here</h3>
+                            <p class="font-label text-sm opacity-70 uppercase tracking-widest">PDF ONLY OR LOSE YOUR
+                                DIGNITY.</p>
+                            <div
+                                class="bg-on-background text-surface-bright font-label font-bold px-8 py-4 border-2 border-on-background inline-block uppercase pointer-events-auto shadow-[4px_4px_0_0_#ac2c00]">
+                                SELECT PDF FILE
+                            </div>
+                        </div>
+                        <input type="file" id="file-input" accept=".pdf" class="hidden">
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4 Stages of Grief -->
+            <section class="bg-on-background py-24 px-6 relative z-10 w-full">
+                <div class="max-w-7xl mx-auto">
+                    <div class="mb-16 text-center space-y-4">
+                        <h2
+                            class="font-headline text-5xl md:text-6xl font-black text-surface italic uppercase tracking-tighter -rotate-1">
+                            THE FOUR STAGES OF <span class="text-secondary-fixed">GRIEF</span>
+                        </h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div
+                            class="bg-surface p-8 border-4 border-on-background rotate-1 hover:rotate-0 transition-transform flex flex-col h-full">
+                            <div class="mb-6 relative h-48 overflow-hidden border-2 border-on-background">
+                                <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqFL1SIXnFMk9Vr-IigPOnDggF9Zfq9wVeioxulWvloVJu4kCe5z08ImPgkxlXRhtJ-5cT_O7uWKxbqEPX_ENPzrm7Opx9jNOWivaplnQ6hD2k07ZSTxGKzi70AlDNn97tsUBETcOo84K9cO5H9bL9JrUyUXwmFy_9w06i5waEI1k4eJHvMqKnP193k722wP2DlLZG1n2YIwlrNMV8Rm34LN6ZoKPcdJ4Nmd3y4i061eDl7IY9qfLUdillK3X2OMLBlecrsJabmJ0" />
+                                <div
+                                    class="absolute top-2 left-2 bg-primary text-on-primary px-3 py-1 font-headline font-black italic text-xl border-2 border-on-background">
+                                    1</div>
+                            </div>
+                            <h4 class="font-headline text-2xl font-black uppercase mb-4 leading-none">THE INCINERATION
+                            </h4>
+                            <p class="font-body text-sm leading-relaxed opacity-80">Our AI Chef shreds your buzzwords
+                                until nothing remains but the cold truth.</p>
+                        </div>
+                        <div
+                            class="bg-surface p-8 border-4 border-on-background -rotate-2 hover:rotate-0 transition-transform flex flex-col h-full">
+                            <div class="mb-6 relative h-48 overflow-hidden border-2 border-on-background">
+                                <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDldAIJbeBVSP9a87Yufhu07LIQ5CimF-2t9JK5DQ8vYw0ygM4rQizhPelCn-R98ILGSLy4SwT5LkQJYKY-noj7k2szGxtAM7wM2OwK0HlJYYXSdMgoA77XUSIZgMbO7qskAMXk9a0GCRBvNGCRc9NaU5uVWKvRgQFnEYGouJKvoEgyiOUZpmp06iaWi5JJhJDRLBvkGEp93mUk0hbRNsLGynUzV87gH8z0MMNqd5sVOyf9xvRmrwQyiCS1zFr5cXUrDh68FBjmWs0" />
+                                <div
+                                    class="absolute top-2 left-2 bg-primary text-on-primary px-3 py-1 font-headline font-black italic text-xl border-2 border-on-background">
+                                    2</div>
+                            </div>
+                            <h4 class="font-headline text-2xl font-black uppercase mb-4 leading-none">THE AUTOPSY</h4>
+                            <p class="font-body text-sm leading-relaxed opacity-80">Every bullet point is analyzed. Why
+                                did you use 'Passionate' three times? We know you're tired.</p>
+                        </div>
+                        <div
+                            class="bg-surface p-8 border-4 border-on-background rotate-2 hover:rotate-0 transition-transform flex flex-col h-full">
+                            <div class="mb-6 relative h-48 overflow-hidden border-2 border-on-background">
+                                <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-YOFgFN7UMGKBC9YqAmrEYLZ-WswrQvmyNpuwqHVVnXVyEfiaro3ezfgjxCbkO27ggqRYCejjnWNLzjh1ZYF9OLCdmotwHglP_G-q7l4hT0wz9SzD2ml9kjwf_Uzbnhtkbs08foA3rHCgtaAbNAqLDxTvpB4uMJ5K1bx3FOfAKqNA6x4cFegHALuWJGBmmv51vjLsFAPJ1jkVatEukjoeC0gR6BIJrEnOR4IwJ4O6AhwulrZQtlHWHmKvmWasO25o5dm7rxXrbxg" />
+                                <div
+                                    class="absolute top-2 left-2 bg-primary text-on-primary px-3 py-1 font-headline font-black italic text-xl border-2 border-on-background">
+                                    3</div>
+                            </div>
+                            <h4 class="font-headline text-2xl font-black uppercase mb-4 leading-none">THE AI SNARK</h4>
+                            <p class="font-body text-sm leading-relaxed opacity-80">We don't just mock; we mend. Get
+                                AI-suggested bullets that actually sound like a human wrote them.</p>
+                        </div>
+                        <div
+                            class="bg-surface p-8 border-4 border-on-background -rotate-1 hover:rotate-0 transition-transform flex flex-col h-full">
+                            <div class="mb-6 relative h-48 overflow-hidden border-2 border-on-background">
+                                <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwIbyMucTCCgZDUiduHo7r6vWj76fd5FgpSerOHOoZiY9mzKqXnF7HKpRFS5pwRlFryd1nyVXlFqAgFzxfj5A24bHL_F1tGBLpOovCuEeV51UB3HVUUbVPm2AJ3pvZHhfUmcN8E5UGHGwGqAQbAYxLK7Pf2hwJF1dUUlH4y0TxXbLPr4ekyOxEsk_R7hT-axKXlS3w1qjxzFdPph-l34e0e1H_rfT-glIhjuCw1Yo54iKlG-q9hhX2GlhtAsUg832h1vpWdoGclo0" />
+                                <div
+                                    class="absolute top-2 left-2 bg-primary text-on-primary px-3 py-1 font-headline font-black italic text-xl border-2 border-on-background">
+                                    4</div>
+                            </div>
+                            <h4 class="font-headline text-2xl font-black uppercase mb-4 leading-none">THE GLORY</h4>
+                            <p class="font-body text-sm leading-relaxed opacity-80">Walk into that interview with the
+                                confidence of someone whose resume has survived the kinetic pulp.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- VIEW: LOADING -->
+        <div id="view-loading"
+            class="view-section hidden pt-20 flex flex-col items-center justify-center min-h-[80vh] px-6">
+            <div class="absolute inset-0 halftone-overlay pointer-events-none z-0"></div>
+            <div class="relative z-10 text-center mb-12 max-w-2xl transform -rotate-1">
+                <h1
+                    class="font-headline font-black text-6xl md:text-8xl text-primary italic uppercase tracking-tighter mb-2">
+                    ROASTING<br />IN PROGRESS
+                </h1>
+                <div class="inline-block bg-secondary-container px-4 py-1 comic-border transform rotate-2">
+                    <p id="loading-timer" class="font-label font-bold text-on-secondary-container tracking-widest">
+                        ESTIMATED TIME TO EGO DEATH: WAITING...</p>
+                </div>
+            </div>
+
+            <div class="relative z-10 w-full max-w-4xl">
+                <div class="bg-surface-container-high comic-border impact-shadow p-2 md:p-4 transform skew-y-1">
+                    <div class="relative bg-white comic-border h-[400px] overflow-hidden group">
+                        <img alt="Robot Chef" class="w-full h-full object-cover grayscale brightness-110 contrast-125"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuArfcxMxLIY4kGfHxgUv-wwEuZr4W7OwDyZA4z4b4v5B7p9LZHdICncbjXZARlnqr7MjuglA1wfDVl1y0dPzHTSCMQEKmGTqFrTPT7Bn6O_37AWTo2A0cjQDFhARfeKVaSB4YwTErJqqH4TClUmhB0oHf8Tnz08ik2H2ZcQQ24Dv1hho9YsSrOhtaMtiyqhChkTAu8D01n_qBQnazCM0TEj8dbXjKioMlAhWK1PTypvc14aiwd6zvAb0FxxivB3V1SseAGNQNHbkFQ" />
+                        <div class="absolute inset-0 bg-primary-container/20 mix-blend-multiply"></div>
+                        <div class="absolute top-10 left-10 transform -rotate-12 bg-white comic-border p-4 impact-shadow max-w-[200px] animate-bounce"
+                            style="animation-duration: 2s;">
+                            <p class="font-headline font-extrabold text-xl leading-none text-primary italic">CHECKING
+                                YOUR FONTS... YIKES!</p>
+                        </div>
+                        <div class="absolute bottom-20 right-10 transform rotate-6 bg-secondary-container comic-border p-4 impact-shadow max-w-[220px] animate-bounce"
+                            style="animation-duration: 3s;">
+                            <p
+                                class="font-headline font-extrabold text-xl leading-none text-on-secondary-container italic">
+                                FINDING THE TYPOS... TOO EASY!</p>
+                        </div>
+                        <div
+                            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none animate-pulse">
+                            <div
+                                class="bg-tertiary comic-border p-6 transform -rotate-3 scale-125 opacity-90 backdrop-blur-md">
+                                <span
+                                    class="font-headline font-black text-white text-5xl uppercase tracking-tighter">FWOOOOSH!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 relative w-full flex items-center gap-4">
+                    <div class="flex-grow h-8 bg-surface-container-highest comic-border relative overflow-hidden">
+                        <div
+                            class="absolute top-0 left-0 h-full burning-fuse w-full animate-pulse transition-all duration-1000 ease-in-out flex items-center justify-end pr-2 overflow-visible">
+                            <div
+                                class="w-12 h-12 bg-secondary-container comic-border rounded-full flex items-center justify-center absolute -right-6">
+                                <span
+                                    class="material-symbols-outlined text-primary font-bold">local_fire_department</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative w-24 h-24 flex-shrink-0 bg-on-surface rounded-full comic-border flex items-center justify-center transform animate-spin"
+                        style="animation-duration: 4s;">
+                        <span class="material-symbols-outlined text-surface text-5xl"
+                            style="font-variation-settings: 'FILL' 1;">whatshot</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="error-alert"
+                class="hidden mt-8 max-w-4xl w-full bg-error text-white p-6 comic-border impact-shadow transform rotate-1">
+                <h3 class="font-headline text-3xl font-black italic uppercase">EPIC FAIL!</h3>
+                <p id="error-message" class="font-body font-bold mt-2">Something went wrong contacting the Roaster Core.
+                </p>
+                <button onclick="navigate('home')"
+                    class="mt-4 bg-white text-error px-6 py-2 font-label font-bold border-2 border-on-background uppercase">Try
+                    Again (If you dare)</button>
+            </div>
+        </div>
+
+        <!-- VIEW: RESULTS -->
+        <div id="view-results" class="view-section hidden pb-24">
+            <div class="fixed inset-0 comic-halftone pointer-events-none z-0"></div>
+
+            <section class="px-6 pt-16 pb-12 max-w-5xl mx-auto text-left relative overflow-hidden z-10">
+                <div class="absolute -top-10 right-0 opacity-10 pointer-events-none">
+                    <span class="material-symbols-outlined text-[15rem]"
+                        data-icon="local_fire_department">local_fire_department</span>
+                </div>
+                <div class="relative skew-tile text-center mb-12">
+                    <h1
+                        class="font-headline text-6xl md:text-8xl font-black italic tracking-tighter text-on-background uppercase leading-none">
+                        THE <span class="text-error drop-shadow-[4px_4px_0px_#2f2f2e]">VERDICT</span>
+                    </h1>
+                </div>
+
+                <!-- OVERALL SCORE PANELS -->
+                <div
+                    class="bg-surface-container-high comic-border impact-shadow p-8 mb-12 transform -rotate-1 relative overflow-hidden group">
+                    <div
+                        class="absolute top-0 right-0 w-64 h-64 bg-error rounded-full blur-3xl opacity-20 group-hover:scale-150 transition-transform duration-700 pointer-events-none">
+                    </div>
+                    <div class="flex flex-col md:flex-row items-center gap-12 relative z-10">
+                        <div class="flex flex-col items-center">
+                            <span
+                                class="font-label text-xl font-bold text-on-surface-variant uppercase tracking-widest block mb-2">Overall
+                                Score</span>
+                            <div class="relative">
+                                <span id="r-overall-score"
+                                    class="font-headline text-9xl font-black text-error leading-none italic drop-shadow-[4px_4px_0px_rgba(47,47,46,0.2)]">--</span>
+                                <span
+                                    class="absolute bottom-4 -right-8 text-2xl font-black font-label text-on-surface-variant">/100</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="font-headline text-3xl font-black italic uppercase mb-2">Final Judgment</h3>
+                            <p id="r-verdict"
+                                class="font-body text-xl italic border-l-8 border-error pl-6 bg-surface p-4 border-y-4 border-r-4 border-on-background">
+                                "Airing out dirty laundry is one thing, but binding it and submitting it as a PDF is
+                                another level of self-sabotage."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <!-- CONTENT QUALITY -->
+                    <div
+                        class="bg-surface p-6 comic-border impact-shadow transform rotate-1 hover:rotate-0 transition-transform">
+                        <div class="flex justify-between items-start mb-4 border-b-4 border-on-background pb-4">
+                            <h2 class="font-headline text-2xl font-black italic uppercase text-primary">Content Quality
+                            </h2>
+                            <div
+                                class="bg-primary text-white font-label font-bold px-3 py-1 border-2 border-on-background">
+                                <span id="r-content-score">--</span>/100
+                            </div>
+                        </div>
+                        <p id="r-content-feedback" class="font-body text-sm mb-4">Feedback here...</p>
+                        <h4 class="font-label font-bold text-error uppercase text-xs mb-2 tracking-widest">Offenses</h4>
+                        <ul id="r-content-issues"
+                            class="list-disc list-inside font-body text-sm space-y-2 text-on-surface-variant">
+                        </ul>
+                    </div>
+
+                    <!-- FORMATTING & UX -->
+                    <div
+                        class="bg-surface p-6 comic-border impact-shadow transform -rotate-1 hover:rotate-0 transition-transform">
+                        <div class="flex justify-between items-start mb-4 border-b-4 border-on-background pb-4">
+                            <h2 class="font-headline text-2xl font-black italic uppercase text-secondary">Formatting &
+                                UX</h2>
+                            <div
+                                class="bg-secondary text-white font-label font-bold px-3 py-1 border-2 border-on-background">
+                                <span id="r-formatting-score">--</span>/100
+                            </div>
+                        </div>
+                        <p id="r-formatting-feedback" class="font-body text-sm mb-4">Feedback here...</p>
+                        <h4 class="font-label font-bold text-error uppercase text-xs mb-2 tracking-widest">Visual Crimes
+                        </h4>
+                        <ul id="r-formatting-issues"
+                            class="list-disc list-inside font-body text-sm space-y-2 text-on-surface-variant">
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <!-- MISSING SECTIONS -->
+                    <div class="bg-surface-container-low p-6 comic-border impact-shadow transform -rotate-1">
+                        <div class="flex justify-between items-start mb-4 border-b-4 border-on-background pb-4">
+                            <h2 class="font-headline text-2xl font-black italic uppercase">Missing Sections</h2>
+                            <div
+                                class="bg-on-background text-white font-label font-bold px-3 py-1 border-2 border-on-background">
+                                <span id="r-missing-score">--</span>/100
+                            </div>
+                        </div>
+                        <p id="r-missing-feedback" class="font-body text-sm mb-4">Feedback here...</p>
+                        <h4 class="font-label font-bold text-error uppercase text-xs mb-2 tracking-widest">AWOL Elements
+                        </h4>
+                        <ul id="r-missing-items" class="list-none font-body text-sm space-y-2 text-on-surface-variant">
+                        </ul>
+                    </div>
+
+                    <!-- OVERALL IMPRESSION -->
+                    <div class="bg-secondary-container p-6 comic-border impact-shadow transform rotate-1">
+                        <h2
+                            class="font-headline text-2xl font-black italic uppercase text-on-secondary-container border-b-4 border-on-background pb-2 mb-4">
+                            Overall Impression</h2>
+                        <p id="r-impression-feedback" class="font-body text-sm mb-4 text-on-secondary-container">General
+                            impression here.</p>
+
+                        <div class="bg-white p-4 comic-border mb-4">
+                            <h4 class="font-label font-bold uppercase text-xs mb-2 tracking-widest text-[#166534]">
+                                What's Working (Miraculously)</h4>
+                            <ul id="r-impression-strengths" class="list-disc list-inside font-body text-sm space-y-1">
+                            </ul>
+                        </div>
+
+                        <div class="bg-error p-4 comic-border text-white">
+                            <h4 class="font-label font-bold uppercase text-xs mb-2 tracking-widest">Fatal Flaws</h4>
+                            <ul id="r-impression-flaws" class="list-disc list-inside font-body text-sm space-y-1"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                    <button onclick="navigate('home')"
+                        class="bg-on-background text-surface font-headline text-2xl font-black py-4 px-12 border-4 border-on-background comic-shadow hover:-translate-y-1 hover:-translate-x-1 active:translate-x-1 active:translate-y-1 transition-all uppercase italic">
+                        ROAST ANOTHER CV
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- VIEW: HALL OF SHAME -->
+        <div id="view-shame" class="view-section hidden min-h-screen comic-halftone pb-20">
+            <section class="px-6 pt-16 pb-12 max-w-7xl mx-auto text-left relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 opacity-10">
+                    <span class="material-symbols-outlined text-[20rem]" data-icon="skull">skull</span>
+                </div>
+                <div class="relative z-10 skew-tile">
+                    <h1
+                        class="font-headline text-7xl md:text-9xl font-black italic tracking-tighter text-on-background uppercase leading-none">
+                        Hall of <span class="text-primary drop-shadow-[4px_4px_0px_#2f2f2e]">Shame</span>
+                    </h1>
+                    <p
+                        class="font-label text-xl mt-4 bg-secondary-container inline-block px-4 py-1 border-2 border-on-background rotate-1">
+                        WHERE CAREERS GO TO DIE. SLOWLY.
+                    </p>
+                </div>
+            </section>
+
+            <section class="px-6 max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                    <div
+                        class="group relative flex flex-col bg-surface-container-high border-[3px] border-on-background shadow-[8px_8px_0px_0px_#2f2f2e] hover:-translate-y-2 hover:translate-x-1 transition-all duration-200">
+                        <div class="relative aspect-[3/4] overflow-hidden bg-on-background">
+                            <img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNHzgTmj-iDSKCLFs2SfbbfaIaM9Q4p4dY9IXtxMn57Sq-wZwSVh5J8Pj01eWZWc8Phh1XWCo4_qc-wiMiW-n5ezXmn5cM8tmzkkfNFIc0OA4qhIgZ0cf9nKZ87Aj-9pYcr6GCZ4ML7Ds9MAvIMWERu35UhVoKSd78u4hYUz_izCF4Au8px41Cblc9_DJwLx4b8uorjv8B4yqoBIGXGnm7VJNMCB1EzU9_rgUpiC9dJEGbnvDj9FLTGZe3RrIHZ0AwEC2yaRI04lQ" />
+                            <div class="gritty-overlay absolute inset-0"></div>
+                            <div
+                                class="absolute top-4 left-4 bg-tertiary text-on-tertiary px-3 py-1 font-headline font-black italic uppercase text-2xl -rotate-3 border-2 border-on-background">
+                                #01</div>
+                            <div class="absolute bottom-4 left-4 right-4">
+                                <h3
+                                    class="font-headline text-3xl font-black text-white italic uppercase tracking-tighter leading-tight">
+                                    THE FONT <span class="text-secondary-container">FANATIC</span></h3>
+                            </div>
+                        </div>
+                        <div class="p-6 bg-surface-container-lowest">
+                            <div class="flex justify-between items-end mb-4">
+                                <div><span class="font-label text-xs uppercase text-secondary font-bold block">ROAST
+                                        SCORE</span><span
+                                        class="font-headline text-5xl font-black text-primary leading-none italic">9.8</span>
+                                </div>
+                                <div class="text-right"><span
+                                        class="font-label text-xs uppercase text-on-surface-variant block">SURVIVAL
+                                        CHANCE</span><span
+                                        class="font-label text-xl font-bold text-on-background">0.02%</span></div>
+                            </div>
+                            <p
+                                class="text-on-surface-variant text-sm italic font-body border-l-4 border-primary pl-4 py-1">
+                                "Using Comic Sans for a Senior Engineer role isn't just a mistake, it's a declaration of
+                                war against legibility."</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+        class="w-full border-t-4 border-primary bg-on-background dark:bg-black flex flex-col md:flex-row justify-between items-center px-10 py-8 z-20 mt-auto">
+        <div class="mb-4 md:mb-0">
+            <span class="text-surface font-black italic font-headline tracking-widest uppercase text-xl">THE KINETIC
+                PULP</span>
+            <p class="text-primary-fixed font-label text-xs tracking-[0.2em] mt-2">© 2024 THE KINETIC PULP - NO MERCY
+                FOR WEAK CVS</p>
+        </div>
+        <div class="flex gap-8 font-label text-xs tracking-widest uppercase">
+            <a class="text-surface hover:text-primary-fixed transition-colors" href="#">Terms</a>
+            <a class="text-surface hover:text-primary-fixed transition-colors" href="#">Privacy</a>
+            <a class="text-surface hover:text-primary-fixed transition-colors" href="#">Twitter</a>
+        </div>
+    </footer>
+
+    <script>
+        // --- TIMER STATE ---
+        let timerInterval = null;
+        let timerSeconds = 0;
+
+        function startTimer() {
+            stopTimer();
+            timerSeconds = 0;
+            const timerEl = document.getElementById('loading-timer');
+            timerEl.textContent = "ESTIMATED TIME TO EGO DEATH: 0s";
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+                timerEl.textContent = "ESTIMATED TIME TO EGO DEATH: " + timerSeconds + "s";
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        // --- NAVIGATION LOGIC ---
+        function navigate(viewId) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            const target = document.getElementById('view-' + viewId);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('nav button').forEach(el => {
+                el.classList.remove('text-primary', 'underline', 'decoration-4', 'underline-offset-4');
+                el.classList.add('text-on-background');
+            });
+
+            const activeNav = document.getElementById('nav-' + viewId);
+            if (activeNav) {
+                activeNav.classList.add('text-primary', 'underline', 'decoration-4', 'underline-offset-4');
+                activeNav.classList.remove('text-on-background');
+            }
+
+            if (viewId !== 'loading') stopTimer();
+            window.scrollTo(0, 0);
+        }
+
+        // --- UPLOAD SYSTEM LOGIC ---
+        const uploadZone = document.getElementById('upload-zone');
+        const fileInput = document.getElementById('file-input');
+
+        uploadZone.addEventListener('click', () => fileInput.click());
+
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('dragover');
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && files[0].type === 'application/pdf') {
+                processFileAndRoast(files[0]);
+            } else {
+                alert("Only PDFs are allowed.");
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                processFileAndRoast(e.target.files[0]);
+            }
+        });
+
+        // --- API CALL — routes through local server proxy so key stays in .env ---
+        async function callGeminiProxy(bodyObj) {
+            const res = await fetch('/api/gemini', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(bodyObj),
+            });
+
+            if (!res.ok) {
+                let errMsg = `Proxy request failed (HTTP ${res.status})`;
+                try {
+                    const err = await res.json();
+                    errMsg = err?.error?.message || err?.error || errMsg;
+                } catch (e) {}
+                throw new Error(errMsg);
+            }
+
+            return res.json();
+        }
+
+        // --- ROASTING LOGIC ---
+        async function processFileAndRoast(file) {
+            if (file.size > 10 * 1024 * 1024) {
+                alert("File too large! Maximum size is 10MB.");
+                return;
+            }
+            if (file.size === 0) {
+                alert("Empty file detected. Try a real resume.");
+                return;
+            }
+
+            navigate('loading');
+            startTimer();
+            document.getElementById('error-alert').classList.add('hidden');
+
+            try {
+                const base64Data = await new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        const result = reader.result;
+                        const commaIndex = result.indexOf(',');
+                        if (commaIndex === -1) return reject(new Error("Failed to read file."));
+                        resolve(result.substring(commaIndex + 1));
+                    };
+                    reader.onerror = () => reject(new Error("Failed to read file."));
+                    reader.readAsDataURL(file);
+                });
+
+                const promptString = `You are a brutally honest, savage, witty resume critic for "The Kinetic Pulp". Roast this resume mercilessly but constructively. Your tone is sarcastic, comic-book pulpy, and dramatic. Return ONLY a valid JSON object matching this exact schema (no markdown, no commentary):
+
+{
+  "overall_score": <number 0-100>,
+  "verdict": "<one savage final-judgment sentence in quotes-worthy style>",
+  "content_quality": {
+    "score": <number 0-100>,
+    "feedback": "<2-3 sentences of brutal feedback about the writing/content>",
+    "issues": ["<specific issue 1>", "<specific issue 2>", "<specific issue 3>"]
+  },
+  "formatting_ux": {
+    "score": <number 0-100>,
+    "feedback": "<2-3 sentences about layout, fonts, spacing, visual design>",
+    "issues": ["<visual crime 1>", "<visual crime 2>", "<visual crime 3>"]
+  },
+  "missing_sections": {
+    "score": <number 0-100>,
+    "feedback": "<what crucial things are missing>",
+    "missing": ["<missing item 1>", "<missing item 2>"]
+  },
+  "overall_impression": {
+    "score": <number 0-100>,
+    "feedback": "<general impression in savage tone>",
+    "strengths": ["<grudging strength 1>", "<grudging strength 2>"],
+    "fatal_flaws": ["<fatal flaw 1>", "<fatal flaw 2>"]
+  }
+}`;
+
+                const bodyObj = {
+                    contents: [
+                        {
+                            parts: [
+                                { text: promptString },
+                                {
+                                    inline_data: {
+                                        mime_type: 'application/pdf',
+                                        data: base64Data
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        temperature: 0.9
+                    }
+                };
+
+                const data = await callGeminiProxy(bodyObj);
+
+                let responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+                if (!responseText) throw new Error("Empty response from AI. The roaster choked.");
+
+                responseText = responseText.replace(/```json/gi, '').replace(/```/g, '').trim();
+                const firstBrace = responseText.indexOf('{');
+                const lastBrace = responseText.lastIndexOf('}');
+                if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+                    responseText = responseText.substring(firstBrace, lastBrace + 1);
+                }
+
+                let analysis;
+                try {
+                    analysis = JSON.parse(responseText);
+                } catch (e) {
+                    console.error("Bad JSON:", responseText);
+                    throw new Error("AI returned malformed JSON. Try again.");
+                }
+
+                stopTimer();
+                renderResults(analysis);
+                navigate('results');
+
+            } catch (error) {
+                console.error(error);
+                stopTimer();
+                document.getElementById('error-message').textContent = error.message || "Unknown error";
+                document.getElementById('error-alert').classList.remove('hidden');
+            }
+        }
+
+        // --- RESULTS RENDER LOGIC ---
+        function setText(id, value) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = value;
+        }
+
+        function fillList(id, items) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.innerHTML = "";
+            if (!Array.isArray(items) || items.length === 0) {
+                const li = document.createElement('li');
+                li.textContent = "— Nothing to report —";
+                li.style.opacity = "0.6";
+                el.appendChild(li);
+                return;
+            }
+            items.forEach(it => {
+                const li = document.createElement('li');
+                li.textContent = String(it);
+                el.appendChild(li);
+            });
+        }
+
+        function renderResults(data) {
+            data = data || {};
+            setText('r-overall-score', data.overall_score ?? "0");
+            setText('r-verdict', '"' + (data.verdict || "No verdict returned.") + '"');
+
+            const cq = data.content_quality || {};
+            setText('r-content-score', cq.score ?? "0");
+            setText('r-content-feedback', cq.feedback || "No feedback.");
+            fillList('r-content-issues', cq.issues);
+
+            const fmt = data.formatting_ux || {};
+            setText('r-formatting-score', fmt.score ?? "0");
+            setText('r-formatting-feedback', fmt.feedback || "No feedback.");
+            fillList('r-formatting-issues', fmt.issues);
+
+            const mis = data.missing_sections || {};
+            setText('r-missing-score', mis.score ?? "0");
+            setText('r-missing-feedback', mis.feedback || "No feedback.");
+            fillList('r-missing-items', mis.missing);
+
+            const imp = data.overall_impression || {};
+            setText('r-impression-feedback', imp.feedback || "No feedback.");
+            fillList('r-impression-strengths', imp.strengths);
+            fillList('r-impression-flaws', imp.fatal_flaws);
+        }
+    </script>
+</body>
+
+</html>
